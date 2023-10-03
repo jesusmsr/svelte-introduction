@@ -1,5 +1,6 @@
 <script>
-  import Pointer from "./lib/Pointer.svelte";
+  import Events from "./lib/Events.svelte";
+import Pointer from "./lib/Pointer.svelte";
   let name = 'Jesus';
 
   let button = '<button>Click me</button>';
@@ -47,6 +48,11 @@
   // Promises
 
   const promise = null;
+
+  // Component events
+  function onMessage(e){
+    alert(e.detail.text)
+  }
 </script>
 
 <h1 >Hello {name.toUpperCase()}</h1>
@@ -88,6 +94,9 @@
 {:catch error}
   <p>{error.message}</p>
 {/await}
+
+<hr>
+<Events on:message={onMessage} />
 <style>
   h1{
     color: lightblue
