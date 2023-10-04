@@ -1,48 +1,50 @@
 <script>
   import Events from "./lib/Events.svelte";
-import Pointer from "./lib/Pointer.svelte";
-  let name = 'Jesus';
+  import Pointer from "./lib/Pointer.svelte";
+  import { onMount } from "svelte";
 
-  let button = '<button>Click me</button>';
+  let name = "Jesus";
+
+  let button = "<button>Click me</button>";
 
   let counter = 0;
-  $: doubledCounter = counter * 2
+  $: doubledCounter = counter * 2;
 
   $: {
     console.log(counter);
-    if (counter > 10) alert('GREATER THAN 10')
+    if (counter > 10) alert("GREATER THAN 10");
   }
 
-  function increment(){
+  function increment() {
     counter += 1;
   }
-  function decrement(){
+  function decrement() {
     counter -= 1;
   }
 
   // Reactivity (arrays)
-  let todos = ['clean', 'learn svelte', 'love life'];
+  let todos = ["clean", "learn svelte", "love life"];
 
   $: console.log(todos);
 
-  function addTodo(){
-    todos = [...todos, 'new value'];
+  function addTodo() {
+    todos = [...todos, "new value"];
   }
 
   // Keyed each blocks
-  const users = [
+  let users = [
     {
-      name: 'jesus',
-      id: 1
+      name: "jesus",
+      id: 1,
     },
     {
-      name: 'david',
-      id: 2
+      name: "david",
+      id: 2,
     },
     {
-      name: 'laura',
-      id: 3
-    }
+      name: "laura",
+      id: 3,
+    },
   ];
 
   // Promises
@@ -50,28 +52,44 @@ import Pointer from "./lib/Pointer.svelte";
   const promise = null;
 
   // Component events
-  function onMessage(e){
-    alert(e.detail.text)
+  function onMessage(e) {
+    alert(e.detail.text);
+  }
+
+  // Text inputs
+  let nameText = "Jesus";
+  let checked = false;
+
+  // Lifecycles
+  onMount(() => {
+    alert("component mounted");
+  });
+
+  let newUser = "";
+
+  function addUser() {
+    users = [...users, { name: newUser, id: 9 }];
+    newUser = "";
   }
 </script>
 
-<h1 >Hello {name.toUpperCase()}</h1>
-<hr>
+<h1>Hello {name.toUpperCase()}</h1>
+<hr />
 
 <h3>{counter}</h3>
 <h3>Double counter: {doubledCounter}</h3>
 <button on:click={increment}>Increment</button>
 <button on:click={decrement}>Decrement</button>
 
-<hr>
+<hr />
 <Pointer x={0} y={0} />
 
 <p>{@html button}</p>
-<hr>
+<hr />
 <h1>Reactivity: updating arrays and objects</h1>
 <button on:click={addTodo}>Add new todo</button>
 
-<hr>
+<hr />
 <h1>Conditionals</h1>
 {#if counter > 5}
   <p>Counter greater than 5</p>
@@ -79,13 +97,13 @@ import Pointer from "./lib/Pointer.svelte";
   <p>Havent reached 5 yet</p>
 {/if}
 
-<hr>
+<hr />
 <h1>Keyed each blocks</h1>
 {#each users as user (user.id)}
   <p>user {user.name}</p>
 {/each}
 
-<hr>
+<hr />
 <h1>Await blocks</h1>
 {#await promise}
   <p>Data is coming</p>
@@ -95,10 +113,25 @@ import Pointer from "./lib/Pointer.svelte";
   <p>{error.message}</p>
 {/await}
 
-<hr>
 <Events on:message={onMessage} />
+
+<hr />
+<h1>Text inputs</h1>
+
+<input type="text" bind:value={nameText} />
+<h4>Hello {nameText}</h4>
+<input type="checkbox" bind:checked />
+{#if checked}
+  <p>checked</p>
+{/if}
+
+<hr />
+<h1>Lifecycles</h1>
+<input type="text" bind:value={newUser} />
+<button on:click={addUser}>Add new user</button>
+
 <style>
-  h1{
-    color: lightblue
+  h1 {
+    color: lightblue;
   }
 </style>
