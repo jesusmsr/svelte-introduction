@@ -1,7 +1,11 @@
 <script>
+  import Decrementer from "./lib/Decrementer.svelte";
   import Events from "./lib/Events.svelte";
+  import Incrementer from "./lib/Incrementer.svelte";
   import Pointer from "./lib/Pointer.svelte";
   import { onMount } from "svelte";
+  import Resetter from "./lib/Resetter.svelte";
+  import { count } from "./lib/stores.js";
 
   let name = "Jesus";
 
@@ -71,6 +75,12 @@
     users = [...users, { name: newUser, id: 9 }];
     newUser = "";
   }
+  // Stores
+  let count_value;
+
+  count.subscribe((value) => {
+    count_value = value;
+  });
 </script>
 
 <h1>Hello {name.toUpperCase()}</h1>
@@ -129,6 +139,13 @@
 <h1>Lifecycles</h1>
 <input type="text" bind:value={newUser} />
 <button on:click={addUser}>Add new user</button>
+
+<hr />
+<h1>Stores</h1>
+<h4>Count is: {count_value}</h4>
+<Incrementer />
+<Decrementer />
+<Resetter />
 
 <style>
   h1 {
