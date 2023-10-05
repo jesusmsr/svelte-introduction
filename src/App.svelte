@@ -156,9 +156,18 @@
 <p>The time is: {formatter.format($time)}</p>
 <p>This page has been open for: {$elapsed} {$elapsed === 1 ? 'second' : 'seconds'}</p>
 
+
+<!-- Custom stores -->
+<button on:click={count.increment}>+</button>
+<button on:click={count.decrement}>-</button>
+<button on:click={count.reset}>Reset</button>
+
+<!--
 <Incrementer />
 <Decrementer />
 <Resetter />
+-->
+
 
 <style>
   h1 {
