@@ -5,7 +5,7 @@
   import Pointer from "./lib/Pointer.svelte";
   import { onMount } from "svelte";
   import Resetter from "./lib/Resetter.svelte";
-  import { count, time, elapsed} from "./lib/stores.js";
+  import { count, time, elapsed, nameStore, greeting} from "./lib/stores.js";
 
   let name = "Jesus";
 
@@ -168,6 +168,8 @@
 <Resetter />
 -->
 
+<input type="text" bind:value={$nameStore}>
+<p>{$greeting}</p>
 
 <style>
   h1 {

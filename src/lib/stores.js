@@ -30,3 +30,10 @@ export const time = readable(new Date(), function start(set) {
 export const elapsed = derived(time, ($time) =>
   Math.round(($time.getTime() - start.getTime()) / 1000)
 );
+
+export const nameStore = writable("null");
+
+export const greeting = derived(
+  nameStore,
+  ($nameStore) => "Hello " + $nameStore
+);
