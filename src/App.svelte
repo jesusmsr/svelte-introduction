@@ -5,7 +5,7 @@
   import Pointer from "./lib/Pointer.svelte";
   import { onMount } from "svelte";
   import Resetter from "./lib/Resetter.svelte";
-  import { count, time } from "./lib/stores.js";
+  import { count, time, elapsed} from "./lib/stores.js";
 
   let name = "Jesus";
 
@@ -154,6 +154,7 @@
 
 <!-- Writable stores -->
 <p>The time is: {formatter.format($time)}</p>
+<p>This page has been open for: {$elapsed} {$elapsed === 1 ? 'second' : 'seconds'}</p>
 
 <Incrementer />
 <Decrementer />
