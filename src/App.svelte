@@ -5,7 +5,7 @@
   import Pointer from "./lib/Pointer.svelte";
   import { onMount } from "svelte";
   import Resetter from "./lib/Resetter.svelte";
-  import { count } from "./lib/stores.js";
+  import { count, time } from "./lib/stores.js";
 
   let name = "Jesus";
 
@@ -76,11 +76,18 @@
     newUser = "";
   }
   // Stores
-  let count_value;
 
-  count.subscribe((value) => {
-    count_value = value;
-  });
+  const formatter = new Intl.DateTimeFormat(
+		'en',
+		{
+			hour12: true,
+			hour: 'numeric',
+			minute: '2-digit',
+			second: '2-digit'
+		}
+	);
+
+
 </script>
 
 <h1>Hello {name.toUpperCase()}</h1>
@@ -142,7 +149,12 @@
 
 <hr />
 <h1>Stores</h1>
-<h4>Count is: {count_value}</h4>
+<!-- Auto-subscriptions -->
+<h4>Count is: {$count}</h4>
+
+<!-- Writable stores -->
+<p>The time is: {formatter.format($time)}</p>
+
 <Incrementer />
 <Decrementer />
 <Resetter />
